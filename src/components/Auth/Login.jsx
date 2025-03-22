@@ -17,7 +17,7 @@ const submitHandler = (e) => {
       <div className="p-20 rounded-xl border-2 border-emerald-600">
         <form onSubmit={(e)=>{
             submitHandler(e)
-            console.log(email, password)
+            // console.log(email, password)
             
         }}
         className="flex flex-col items-center justify-center">

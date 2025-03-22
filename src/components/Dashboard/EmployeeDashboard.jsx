@@ -4,7 +4,7 @@ import TaskListCount from '../others/TaskListCount'
 import Tasklist from '../Tasklist/Tasklist'
 
 const EmployeeDashboard = ({data}) => {
-  console.log(data);
+  // console.log(data);
   
   return (
     <div className="p-10 bg-[#1c1c1c] h-screen">

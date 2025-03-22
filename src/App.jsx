@@ -12,53 +12,53 @@ import Header from './components/others/Header'
 
 const App = () => {
 
-      const [user, setUser] = useState(null)
-      const [loggedInUserData, setLoggedInUserData] = useState();
+  const authData = useContext(AuthContext);
+      const [user, setUser] = useState("")
+      const [loggedInUserData, setLoggedInUserData] = useState(null);
+      const [, set] = useState();
       
-      const authData = useContext(AuthContext);
-
-// useEffect(() => {
-//   if(authData){
-//     const loggedInUser = localStorage.getItem("loggedInUser");
-//     if(loggedInUser){
-//       setUser(loggedInUser.role)
-//     }
-//   }
-// }, [authData]);
-useEffect(() => {
-  const data = getLocalStorage();
-  if(data) setLoggedInUserData(data);
-  return () => {
-    
-  };
-}, []);
-
-console.log(loggedInUserData);
-
+      // useEffect(() => {
+      //   const loggedInUser = localStorage.getItem('loggedInUser')
+      //   if(loggedInUser){
+      //     console.log(loggedInUser);
+      //   } 
+      // }, []);
+     
+      
 const handleLogin = (email,password) => {
-  if(email == 'admin@me.com' && password== '123'){
-    setUser('admin')
-    localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin" }));
-  }else if (authData) {
-    const employee = authData.employees.find((e) => email == e.email && password == e.password);
-    if(employee){
-setUser("employee");
-setLoggedInUserData(employee);
-localStorage.setItem("loggedInUser", JSON.stringify({ role: "employee" }));
+  if(authData){
+    if(email != "admin@example.com"){
+      const employee = authData.employees.find(
+        (e) => email == e.email && password == e.password
+      );
+      setUser("employee");
+      localStorage.setItem(
+        "loggedInUser", JSON.stringify({role: 'employee'})
+      );
+      setLoggedInUserData(employee)
+      
+    }else if(email == "admin@example.com" && password == 123){
+      const admin = authData.admin.find(
+        (e) => email == e.email && password == e.password
+      )
+      setUser("admin")
+      
+
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify({ role: 'admin' })
+      );
+      setLoggedInUserData(admin);
+    }else{
+      alert("Invalid Credentials")
     }
-    
+// console.log("user is", user);
+// console.log("user data is", loggedInUserData);
 
-  } else {
-    alert("incorrect id or password");
-  }
+  }else return null;
 }
-// const handleLogout = () => {
-//   setUser(null);
-//   localStorage.removeItem("loggedInUser");
 
-// }
 
-// console.log(data)
   return (
     <>
       {!user ? <Login handleLogin={handleLogin} /> : ""}

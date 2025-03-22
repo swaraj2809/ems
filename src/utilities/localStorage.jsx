@@ -176,8 +176,10 @@ export const admin = [
     id: "admin",
     email: "admin@example.com",
     password: "123",
+    name: "Raksha", 
   },
 ];
+
 
 export const setLocalStorage = (employees, admin) => {
   localStorage.setItem("employees", JSON.stringify(employees));
